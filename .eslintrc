@@ -94,7 +94,13 @@
     ],
     "quotes": ["warn", "double"],
 
-    /** ******** STYLES ********* */
+    /** ******** PRETTIER ********* */
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
 
     /** ******** BEST-PRACTICES ********* */
 
