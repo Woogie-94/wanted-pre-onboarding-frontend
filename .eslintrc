@@ -45,12 +45,6 @@
         "jest": true,
         "jest/globals": true
       }
-    },
-    {
-      "files": ["**/*.stories.tsx"],
-      "rules": {
-        "import/no-unresolved": "warn"
-      }
     }
   ],
 
@@ -59,7 +53,6 @@
     "SharedArrayBuffer": "readonly"
   },
 
-  "ignorePatterns": ["**/mobile/ios/HaruApp/*.entitlements"],
   "rules": {
     /** ******** GENERAL ********* */
 
@@ -135,61 +128,12 @@
     "import/no-named-as-default": "off",
     "import/no-extraneous-dependencies": "off",
     "import/no-unresolved": "off",
-    "no-restricted-imports": [
-      "error",
-      {
-        "paths": [
-          { "name": "decimal.js", "message": "Please use @core/utils/decimal" },
-          {
-            "name": "react-native",
-            "importNames": ["RefreshControl"],
-            "message": "Please import 'RefreshControl' from 'components/common/RefreshControl' instead."
-          }
-        ]
-      }
-    ],
 
     // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
     "import/order": [
       "error",
       {
         "groups": ["external", ["sibling", "parent"], ["internal", "builtin", "index", "unknown"]],
-        "pathGroups": [
-          {
-            "pattern": "+(react|react-native)",
-            "group": "external",
-            "position": "before"
-          },
-          {
-            "pattern": "@+(core|shared-components|design)/**", // @core/**, @shared-components/**, ...
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "components+(_v4|)/**", // components/**, components_v4/**
-            "group": "sibling"
-          },
-          {
-            "pattern": "+(hooks|containers)/**",
-            "group": "sibling"
-          },
-          {
-            "pattern": "+(scrollToTop|GlobalDrawer)",
-            "group": "sibling"
-          },
-          {
-            "pattern": "+(setupTests|appHistory|i18n|HaruTheme|deepLinking|URLConstant|envConstants|services)",
-            "group": "internal"
-          },
-          {
-            "pattern": "@+(mobile|webapp)/**",
-            "group": "internal"
-          },
-          {
-            "pattern": "+(assets|contexts|services|utils|styles|navigation|shared)/**",
-            "group": "internal"
-          }
-        ],
         "pathGroupsExcludedImportTypes": [""],
         "alphabetize": {
           "order": "asc"
