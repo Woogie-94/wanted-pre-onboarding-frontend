@@ -1,16 +1,32 @@
-import useForm from "../hook/useForm";
+import { AxiosError, isAxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 
-interface SignupForm {
-  email: string;
-  password: string;
-}
+import useSignupSend from "../fetch/useSignupSend";
+import useForm from "../hook/useForm";
+import { SignupForm } from "../services/auth";
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const { send: sendSignup, isLoading } = useSignupSend();
   const { register, onSubmit, errors, isUnsubmittable } = useForm<SignupForm>({
     initialValue: { email: "", password: "" },
   });
 
-  const handleSubmit = async (value: SignupForm) => {};
+  const handleSubmit = async (value: SignupForm) => {
+    sendSignup(value, {
+      onSuccess: () => {
+        navigate("/signin");
+      },
+      onError: ex => {
+        if (isAxiosError(ex)) {
+          const error: AxiosError<{ error: string; message: string; status: number }> = ex;
+          if (error.response?.data.message) {
+            alert(error.response.data.message);
+          }
+        }
+      },
+    });
+  };
 
   return (
     <form onSubmit={onSubmit(handleSubmit)}>
@@ -33,6 +49,7 @@ const Signup = () => {
       <button data-testid="signup-button" disabled={isUnsubmittable}>
         회원가입
       </button>
+      {isLoading && <p>회원가입 중...</p>}
     </form>
   );
 };
