@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import useSigninSend from "../fetch/useSigninSend";
 import useForm from "../hook/useForm";
+import usePageAccess from "../hook/usePageAccess";
 import { SignupForm } from "../services/auth";
 
 const Signin = () => {
@@ -27,6 +28,8 @@ const Signin = () => {
       },
     });
   };
+
+  usePageAccess();
 
   return (
     <form onSubmit={onSubmit(handleSubmit)}>
