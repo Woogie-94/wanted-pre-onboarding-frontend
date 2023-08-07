@@ -28,6 +28,10 @@ const Todo = () => {
     editTodo(value, { onError: getHttpError });
   };
 
+  const handleEdited = (value: TodoEditPayload) => {
+    editTodo(value, { onError: getHttpError });
+  };
+
   const handleDeleted = (id: number) => {
     deleteTodo(id, { onError: getHttpError });
   };
@@ -45,7 +49,15 @@ const Todo = () => {
         <button data-testid="new-todo-add-button">추가</button>
       </form>
       <ul>
-        {todos?.map(todo => <TodoItem key={todo.id} todo={todo} onChecked={handleChecked} onDeleted={handleDeleted} />)}
+        {todos?.map(todo => (
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onChecked={handleChecked}
+            onEdited={handleEdited}
+            onDeleted={handleDeleted}
+          />
+        ))}
       </ul>
       {httpError && <p>{httpError.message}</p>}
     </>
