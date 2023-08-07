@@ -4,6 +4,7 @@ import { PATH_ROOT, PATH_SIGNIN, PATH_SIGNUP, PATH_TODO } from "../constants/Pat
 import Main from "../page/Main";
 import Signin from "../page/Signin";
 import Signup from "../page/Signup";
+import Todo from "../page/Todo";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
   },
   {
     path: PATH_TODO,
-    element: <>todo</>,
+    element: <Todo />,
   },
 ]);
 
