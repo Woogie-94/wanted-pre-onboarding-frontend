@@ -13,7 +13,7 @@ const useEditTodoSend = () => {
           FETCH_KEY.todoList,
           prevData.data.map(item => {
             if (item.id === data.id) {
-              return { ...item, isCompleted: data.isCompleted };
+              return { ...item, todo: data.todo, isCompleted: data.isCompleted };
             }
             return item;
           }),
