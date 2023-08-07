@@ -13,7 +13,7 @@ const TodoItem = ({ todo, onChecked, onDeleted }: Props) => {
         <input
           type="checkbox"
           checked={todo.isCompleted}
-          onClick={() => onChecked({ ...todo, isCompleted: !todo.isCompleted })}
+          onChange={() => onChecked({ ...todo, isCompleted: !todo.isCompleted })}
         />
         <span>{todo.todo}</span>
       </label>
