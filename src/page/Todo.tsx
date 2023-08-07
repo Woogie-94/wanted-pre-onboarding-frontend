@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 import TodoItem from "../component/todo/TodoItem";
 import useAddTodoSend from "../fetch/useAddTodoSend";
+import useDeleteTodoSend from "../fetch/useDeleteTodoSend";
 import useEditTodoSend from "../fetch/useEditTodoSend";
 import useTodoFetch from "../fetch/useTodoFetch";
 import useForm from "../hook/useForm";
@@ -13,6 +14,7 @@ const Todo = () => {
   const { data: todos, error } = useTodoFetch();
   const { send: addTodo } = useAddTodoSend();
   const { send: editTodo } = useEditTodoSend();
+  const { send: deleteTodo } = useDeleteTodoSend();
   const { httpError, getHttpError } = useHttpError();
   const { register, onSubmit } = useForm<TodoFrom>({
     initialValue: { todo: "" },
@@ -24,6 +26,10 @@ const Todo = () => {
 
   const handleChecked = (value: TodoEditPayload) => {
     editTodo(value, { onError: getHttpError });
+  };
+
+  const handleDeleted = (id: number) => {
+    deleteTodo(id, { onError: getHttpError });
   };
 
   useEffect(() => {
@@ -38,7 +44,9 @@ const Todo = () => {
         <input data-testid="new-todo-input" {...register("todo")} />
         <button data-testid="new-todo-add-button">추가</button>
       </form>
-      <ul>{todos?.map(todo => <TodoItem key={todo.id} todo={todo} onChecked={handleChecked} />)}</ul>
+      <ul>
+        {todos?.map(todo => <TodoItem key={todo.id} todo={todo} onChecked={handleChecked} onDeleted={handleDeleted} />)}
+      </ul>
       {httpError && <p>{httpError.message}</p>}
     </>
   );

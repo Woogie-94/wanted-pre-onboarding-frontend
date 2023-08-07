@@ -24,3 +24,8 @@ export const editTodo = async (payload: TodoEditPayload) => {
   const { data } = await httpService.put(`/todos/${id}`, { todo, isCompleted });
   return data;
 };
+
+export const deleteTodo = async (id: number) => {
+  const { data } = await httpService.delete(`/todos/${id}`);
+  return data;
+};
