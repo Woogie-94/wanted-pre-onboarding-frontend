@@ -7,7 +7,7 @@ interface HttpError {
   status: number;
 }
 
-const useError = () => {
+const useHttpError = () => {
   const [error, setError] = useState<HttpError>();
 
   const getError = (error: unknown) => {
@@ -25,4 +25,4 @@ const useError = () => {
   };
 };
 
-export default useError;
+export default useHttpError;
