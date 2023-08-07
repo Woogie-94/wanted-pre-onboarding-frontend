@@ -57,7 +57,11 @@ const useForm = <T extends Record<string, any>>({ initialValue }: { initialValue
     };
   };
 
-  return { value, register, onSubmit, errors, isUnsubmittable };
+  const resetValue = () => {
+    setValue(initialValue);
+  };
+
+  return { value, register, onSubmit, resetValue, errors, isUnsubmittable };
 };
 
 export default useForm;
