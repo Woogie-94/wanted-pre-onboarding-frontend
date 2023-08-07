@@ -54,7 +54,16 @@ class FetchClient {
   }
 
   find<TData = unknown>(key: FetchKey): FetchState<TData> | undefined {
-    return this.states.find(state => state.key === key) as FetchState<TData>;
+    if (typeof key === "object") {
+      return this.states.find(state => {
+        if (typeof state.key === "object") {
+          return state.key.every(item => key.find(k => item === k));
+        }
+        return false;
+      }) as FetchState<TData>;
+    } else {
+      return this.states.find(state => state.key === key) as FetchState<TData>;
+    }
   }
 
   async fetch<TData = unknown>(key: FetchKey, fetchFn: FetchFn<TData>) {
