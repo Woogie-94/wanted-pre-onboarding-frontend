@@ -2,12 +2,12 @@ import { useEffect } from "react";
 
 import TodoItem from "../component/todo/TodoItem";
 import useTodoFetch from "../fetch/useTodoFetch";
-import useError from "../hook/useError";
+import useHttpError from "../hook/useHttpError";
 import usePageAccess from "../hook/usePageAccess";
 
 const Todo = () => {
   const { data: todos, error } = useTodoFetch();
-  const { httpError, getHttpError } = useError();
+  const { httpError, getHttpError } = useHttpError();
 
   useEffect(() => {
     getHttpError(error);
