@@ -13,3 +13,14 @@ export const addTodo = async (payload: TodoFrom) => {
   const { data } = await httpService.post("/todos", payload);
   return data;
 };
+
+export interface TodoEditPayload {
+  id: number;
+  todo: string;
+  isCompleted: boolean;
+}
+export const editTodo = async (payload: TodoEditPayload) => {
+  const { id, todo, isCompleted } = payload;
+  const { data } = await httpService.put(`/todos/${id}`, { todo, isCompleted });
+  return data;
+};
