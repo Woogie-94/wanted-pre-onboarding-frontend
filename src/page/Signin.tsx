@@ -1,14 +1,15 @@
-import { AxiosError, isAxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 
 import useSigninSend from "../fetch/useSigninSend";
 import useForm from "../hook/useForm";
+import useHttpError from "../hook/useHttpError";
 import usePageAccess from "../hook/usePageAccess";
 import { SignupForm } from "../services/auth";
 
 const Signin = () => {
   const navigate = useNavigate();
   const { send: sendSignin, isLoading } = useSigninSend();
+  const { httpError, getHttpError } = useHttpError();
   const { register, onSubmit, errors, isUnsubmittable } = useForm<SignupForm>({
     initialValue: { email: "", password: "" },
   });
@@ -18,14 +19,7 @@ const Signin = () => {
       onSuccess: () => {
         navigate("/todo");
       },
-      onError: ex => {
-        if (isAxiosError(ex)) {
-          const error: AxiosError<{ error: string; message: string; status: number }> = ex;
-          if (error.response?.data.message) {
-            alert(error.response.data.message);
-          }
-        }
-      },
+      onError: getHttpError,
     });
   };
 
@@ -52,6 +46,7 @@ const Signin = () => {
       <button data-testid="signin-button" disabled={isUnsubmittable}>
         로그인
       </button>
+      {httpError && <p>{httpError.message}</p>}
       {isLoading && <p>로그인 중...</p>}
     </form>
   );
