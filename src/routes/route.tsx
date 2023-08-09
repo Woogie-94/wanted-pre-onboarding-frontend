@@ -1,23 +1,25 @@
 import { createBrowserRouter } from "react-router-dom";
 
+import { PATH_ROOT, PATH_SIGNIN, PATH_SIGNUP, PATH_TODO } from "../constants/Path";
 import Main from "../page/Main";
+import Signin from "../page/Signin";
 import Signup from "../page/Signup";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: PATH_ROOT,
     element: <Main />,
   },
   {
-    path: "/signup",
+    path: PATH_SIGNUP,
     element: <Signup />,
   },
   {
-    path: "/signin",
-    element: <>signin</>,
+    path: PATH_SIGNIN,
+    element: <Signin />,
   },
   {
-    path: "/todo",
+    path: PATH_TODO,
     element: <>todo</>,
   },
 ]);

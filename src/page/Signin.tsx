@@ -1,22 +1,22 @@
 import { AxiosError, isAxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 
-import useSignupSend from "../fetch/useSignupSend";
+import useSigninSend from "../fetch/useSigninSend";
 import useForm from "../hook/useForm";
 import usePageAccess from "../hook/usePageAccess";
 import { SignupForm } from "../services/auth";
 
-const Signup = () => {
+const Signin = () => {
   const navigate = useNavigate();
-  const { send: sendSignup, isLoading } = useSignupSend();
+  const { send: sendSignin, isLoading } = useSigninSend();
   const { register, onSubmit, errors, isUnsubmittable } = useForm<SignupForm>({
     initialValue: { email: "", password: "" },
   });
 
   const handleSubmit = async (value: SignupForm) => {
-    sendSignup(value, {
+    sendSignin(value, {
       onSuccess: () => {
-        navigate("/signin");
+        navigate("/todo");
       },
       onError: ex => {
         if (isAxiosError(ex)) {
@@ -49,12 +49,12 @@ const Signup = () => {
         />
         {errors.password && <p>{errors.password}</p>}
       </div>
-      <button data-testid="signup-button" disabled={isUnsubmittable}>
-        회원가입
+      <button data-testid="signin-button" disabled={isUnsubmittable}>
+        로그인
       </button>
-      {isLoading && <p>회원가입 중...</p>}
+      {isLoading && <p>로그인 중...</p>}
     </form>
   );
 };
 
-export default Signup;
+export default Signin;
