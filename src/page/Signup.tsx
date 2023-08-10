@@ -14,7 +14,7 @@ const Signup = () => {
     initialValue: { email: "", password: "" },
   });
 
-  const handleSubmit = async (value: SignupForm) => {
+  const handleSubmit = (value: SignupForm) => {
     sendSignup(value, {
       onSuccess: () => {
         navigate("/signin");
