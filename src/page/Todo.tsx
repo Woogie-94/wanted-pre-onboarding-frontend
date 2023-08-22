@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 
+import Input from "../component/common/Input";
 import TodoItem from "../component/todo/TodoItem";
 import useForm from "../hook/useForm";
 import useHttpError from "../hook/useHttpError";
@@ -50,7 +51,7 @@ const Todo = () => {
   return (
     <>
       <form onSubmit={onSubmit(handleAddTodo)}>
-        <input data-testid="new-todo-input" {...register("todo")} />
+        <Input {...register("todo")} testId="new-todo-input" />
         <button data-testid="new-todo-add-button">추가</button>
       </form>
       <ul>

@@ -3,6 +3,7 @@ import { useState } from "react";
 import useForm from "../../hook/useForm";
 import { Todo } from "../../interface/todo";
 import { TodoEditParams, TodoFrom } from "../../services/todo";
+import Input from "../common/Input";
 
 interface Props {
   todo: Todo;
@@ -25,7 +26,7 @@ const TodoItem = ({ todo, onChecked, onEdited, onDeleted }: Props) => {
     <li key={todo.id}>
       {edittable ? (
         <form onSubmit={onSubmit(handleSubmit)}>
-          <input data-testid="modify-input" {...register("todo")} />
+          <Input {...register("todo")} testId="modify-input" />
           <button data-testid="submit-button">제출</button>
           <button
             data-testid="cancel-button"
