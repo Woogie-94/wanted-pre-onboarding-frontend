@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 
+import Button from "../component/common/Button";
 import Input from "../component/common/Input";
 import TodoItem from "../component/todo/TodoItem";
 import useForm from "../hook/useForm";
@@ -52,7 +53,7 @@ const Todo = () => {
     <>
       <form onSubmit={onSubmit(handleAddTodo)}>
         <Input {...register("todo")} testId="new-todo-input" />
-        <button data-testid="new-todo-add-button">추가</button>
+        <Button label="추가" testId="new-todo-add-button" />
       </form>
       <ul>
         {todos?.map(todo => (

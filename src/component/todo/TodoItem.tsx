@@ -3,6 +3,7 @@ import { useState } from "react";
 import useForm from "../../hook/useForm";
 import { Todo } from "../../interface/todo";
 import { TodoEditParams, TodoFrom } from "../../services/todo";
+import Button from "../common/Button";
 import Input from "../common/Input";
 
 interface Props {
@@ -22,38 +23,39 @@ const TodoItem = ({ todo, onChecked, onEdited, onDeleted }: Props) => {
     setEdittable(false);
   };
 
+  const handleEditClick = () => {
+    setEdittable(true);
+  };
+
+  const handleDeletClick = () => {
+    onDeleted(todo.id);
+  };
+
+  const handleCancleClick = () => {
+    setEdittable(false);
+    resetValue();
+  };
+
+  const handleCompletClick = () => {
+    onChecked({ ...todo, isCompleted: !todo.isCompleted });
+  };
+
   return (
     <li key={todo.id}>
       {edittable ? (
         <form onSubmit={onSubmit(handleSubmit)}>
           <Input {...register("todo")} testId="modify-input" />
-          <button data-testid="submit-button">제출</button>
-          <button
-            data-testid="cancel-button"
-            onClick={() => {
-              setEdittable(false);
-              resetValue();
-            }}
-          >
-            취소
-          </button>
+          <Button label="수정" testId="submit-button" />
+          <Button label="취소" onClick={handleCancleClick} testId="cancel-button" />
         </form>
       ) : (
         <>
           <label style={{ marginRight: 12 }}>
-            <input
-              type="checkbox"
-              checked={todo.isCompleted}
-              onChange={() => onChecked({ ...todo, isCompleted: !todo.isCompleted })}
-            />
+            <input type="checkbox" checked={todo.isCompleted} onChange={handleCompletClick} />
             <span>{todo.todo}</span>
           </label>
-          <button data-testid="modify-button" onClick={() => setEdittable(true)}>
-            수정
-          </button>
-          <button data-testid="delete-button" onClick={() => onDeleted(todo.id)}>
-            삭제
-          </button>
+          <Button label="수정" onClick={handleEditClick} testId="modify-button" />
+          <Button label="삭제" onClick={handleDeletClick} testId="delete-button" />
         </>
       )}
     </li>

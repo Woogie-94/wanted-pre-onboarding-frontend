@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
+import Button from "../component/common/Button";
 import Input from "../component/common/Input";
 import useForm from "../hook/useForm";
 import useHttpError from "../hook/useHttpError";
@@ -44,9 +45,7 @@ const Signin = () => {
           helperMessage={errors.password}
         />
       </div>
-      <button data-testid="signin-button" disabled={isUnsubmittable}>
-        로그인
-      </button>
+      <Button label="로그인" disabled={isUnsubmittable} testId="signin-button" />
       {httpError && <p>{httpError.message}</p>}
       {isLoading && <p>로그인 중...</p>}
     </form>
