@@ -14,7 +14,7 @@ import { TodoEditParams, TodoFrom } from "../services/todo";
 
 const Todo = () => {
   const { data: todos, error } = useTodoQuery();
-  const { mutate: addTodo } = useAddTodoMutation();
+  const { mutate: addTodo, isLoading } = useAddTodoMutation();
   const { mutate: editTodo } = useEditTodoMutation();
   const { mutate: deleteTodo } = useDeleteTodoMutation();
   const { httpError, getHttpError } = useHttpError();
@@ -53,7 +53,7 @@ const Todo = () => {
     <>
       <form onSubmit={onSubmit(handleAddTodo)}>
         <Input {...register("todo")} testId="new-todo-input" />
-        <Button label="추가" testId="new-todo-add-button" />
+        <Button label="추가" loading={isLoading} testId="new-todo-add-button" />
       </form>
       <ul>
         {todos?.map(todo => (

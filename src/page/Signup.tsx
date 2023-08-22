@@ -45,8 +45,7 @@ const Signup = () => {
           helperMessage={errors.password}
         />
       </div>
-      <Button label="회원가입" disabled={isUnsubmittable} testId="signup-button" />
-      {isLoading && <p>회원가입 중...</p>}
+      <Button label="회원가입" loading={isLoading} disabled={isUnsubmittable} testId="signup-button" />
       {httpError && <p>{httpError.message}</p>}
     </form>
   );
