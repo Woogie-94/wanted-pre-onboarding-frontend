@@ -11,7 +11,7 @@ import { SignupForm } from "../services/auth";
 const Signup = () => {
   const navigate = useNavigate();
   const { mutate: sendSignup, isLoading } = useSignupMutation();
-  const { httpError, getHttpError } = useHttpError();
+  const { showErrorToast } = useHttpError();
   const { register, onSubmit, errors, isUnsubmittable } = useForm<SignupForm>({
     initialValue: { email: "", password: "" },
   });
@@ -21,7 +21,7 @@ const Signup = () => {
       onSuccess: () => {
         navigate("/signin");
       },
-      onError: getHttpError,
+      onError: showErrorToast,
     });
   };
 
@@ -46,7 +46,6 @@ const Signup = () => {
         />
       </div>
       <Button label="회원가입" loading={isLoading} disabled={isUnsubmittable} testId="signup-button" />
-      {httpError && <p>{httpError.message}</p>}
     </form>
   );
 };

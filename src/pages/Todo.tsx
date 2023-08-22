@@ -17,7 +17,7 @@ const Todo = () => {
   const { mutate: addTodo, isLoading } = useAddTodoMutation();
   const { mutate: editTodo } = useEditTodoMutation();
   const { mutate: deleteTodo } = useDeleteTodoMutation();
-  const { httpError, getHttpError } = useHttpError();
+  const { showErrorToast } = useHttpError();
   const { register, onSubmit, resetValue } = useForm<TodoFrom>({
     initialValue: { todo: "" },
   });
@@ -27,25 +27,25 @@ const Todo = () => {
       onSuccess: () => {
         resetValue();
       },
-      onError: getHttpError,
+      onError: showErrorToast,
     });
   };
 
   const handleChecked = (params: TodoEditParams) => {
-    editTodo(params, { onError: getHttpError });
+    editTodo(params, { onError: showErrorToast });
   };
 
   const handleEdited = (params: TodoEditParams) => {
-    editTodo(params, { onError: getHttpError });
+    editTodo(params, { onError: showErrorToast });
   };
 
   const handleDeleted = (id: number) => {
-    deleteTodo(id, { onError: getHttpError });
+    deleteTodo(id, { onError: showErrorToast });
   };
 
   useEffect(() => {
-    getHttpError(error);
-  }, [error, getHttpError]);
+    showErrorToast(error);
+  }, [error, showErrorToast]);
 
   usePageAccess();
 
@@ -66,7 +66,6 @@ const Todo = () => {
           />
         ))}
       </ul>
-      {httpError && <p>{httpError.message}</p>}
     </>
   );
 };

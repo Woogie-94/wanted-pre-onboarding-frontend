@@ -1,5 +1,6 @@
 import { AxiosError, isAxiosError } from "axios";
-import { useState } from "react";
+
+import useToast from "./useToast";
 
 interface HttpError {
   error: string;
@@ -8,20 +9,19 @@ interface HttpError {
 }
 
 const useHttpError = () => {
-  const [error, setError] = useState<HttpError>();
+  const { show } = useToast();
 
-  const getError = (error: unknown) => {
+  const showErrorToast = (error: unknown) => {
     if (isAxiosError(error)) {
       const { response }: AxiosError<HttpError> = error;
       if (response?.data) {
-        setError(response.data);
+        show({ message: response.data.message });
       }
     }
   };
 
   return {
-    httpError: error,
-    getHttpError: getError,
+    showErrorToast,
   };
 };
 
