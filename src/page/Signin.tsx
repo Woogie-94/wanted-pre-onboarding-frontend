@@ -39,7 +39,7 @@ const Signin = () => {
         <p>패스워드</p>
         <input
           data-testid="password-input"
-          {...register("password", { minLangth: { value: 8, message: "8자 이상 작성해주세요" } })}
+          {...register("password", { minLength: { value: 8, message: "8자 이상 작성해주세요" } })}
         />
         {errors.password && <p>{errors.password}</p>}
       </div>

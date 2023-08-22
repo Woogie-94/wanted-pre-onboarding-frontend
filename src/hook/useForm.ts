@@ -9,7 +9,7 @@ interface ValidationOption {
     value: string;
     message: string;
   };
-  minLangth?: {
+  minLength?: {
     value: number;
     message: string;
   };
@@ -22,18 +22,15 @@ const useForm = <T extends Record<string, any>>({ initialValue }: { initialValue
   const isUnsubmittable = hasError || Object.keys(value).some(key => !value[key]);
 
   const handleValidation = (name: keyof T, value: string, option: ValidationOption) => {
-    if ((option?.minLangth?.value || 0) > value.length) {
-      setErrors(prev => {
-        return { ...prev, [name]: option?.minLangth?.message };
-      });
-    } else if (!value.includes(option?.pattern?.value || "")) {
-      setErrors(prev => {
-        return { ...prev, [name]: option?.pattern?.message };
-      });
+    const isMinLength = (option?.minLength?.value || 0) > value.length;
+    const hasPattern = !value.includes(option?.pattern?.value || "");
+
+    if (isMinLength) {
+      setErrors(prev => ({ ...prev, [name]: option?.minLength?.message }));
+    } else if (hasPattern) {
+      setErrors(prev => ({ ...prev, [name]: option?.pattern?.message }));
     } else {
-      setErrors(prev => {
-        return { ...prev, [name]: "" };
-      });
+      setErrors(prev => ({ ...prev, [name]: "" }));
     }
   };
 
