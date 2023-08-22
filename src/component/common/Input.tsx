@@ -1,12 +1,10 @@
-import { ChangeEvent, InputHTMLAttributes, forwardRef } from "react";
+import { InputHTMLAttributes, forwardRef } from "react";
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  name: string;
-  value: string;
+type InputAttributes = InputHTMLAttributes<HTMLInputElement>;
+interface Props extends InputAttributes {
   label?: string;
   helperMessage?: string;
   testId?: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input = forwardRef<HTMLInputElement, Props>(
