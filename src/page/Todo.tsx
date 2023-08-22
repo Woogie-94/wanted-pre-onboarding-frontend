@@ -8,7 +8,7 @@ import useAddTodoMutation from "../querys/useAddTodoMutation";
 import useDeleteTodoMutation from "../querys/useDeleteTodoMutation";
 import useEditTodoMutation from "../querys/useEditTodoMutation";
 import useTodoQuery from "../querys/useTodoQuery";
-import { TodoEditPayload, TodoFrom } from "../services/todo";
+import { TodoEditParams, TodoFrom } from "../services/todo";
 
 const Todo = () => {
   const { data: todos, error } = useTodoQuery();
@@ -20,8 +20,8 @@ const Todo = () => {
     initialValue: { todo: "" },
   });
 
-  const handleAddTodo = (body: TodoFrom) => {
-    addTodo(body, {
+  const handleAddTodo = (value: TodoFrom) => {
+    addTodo(value.todo, {
       onSuccess: () => {
         resetValue();
       },
@@ -29,12 +29,12 @@ const Todo = () => {
     });
   };
 
-  const handleChecked = (body: TodoEditPayload) => {
-    editTodo(body, { onError: getHttpError });
+  const handleChecked = (params: TodoEditParams) => {
+    editTodo(params, { onError: getHttpError });
   };
 
-  const handleEdited = (body: TodoEditPayload) => {
-    editTodo(body, { onError: getHttpError });
+  const handleEdited = (params: TodoEditParams) => {
+    editTodo(params, { onError: getHttpError });
   };
 
   const handleDeleted = (id: number) => {

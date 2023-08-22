@@ -2,12 +2,12 @@ import { useState } from "react";
 
 import useForm from "../../hook/useForm";
 import { Todo } from "../../interface/todo";
-import { TodoEditPayload, TodoFrom } from "../../services/todo";
+import { TodoEditParams, TodoFrom } from "../../services/todo";
 
 interface Props {
   todo: Todo;
-  onChecked: (value: TodoEditPayload) => void;
-  onEdited: (value: TodoEditPayload) => void;
+  onChecked: (value: TodoEditParams) => void;
+  onEdited: (value: TodoEditParams) => void;
   onDeleted: (id: number) => void;
 }
 const TodoItem = ({ todo, onChecked, onEdited, onDeleted }: Props) => {
