@@ -20,17 +20,21 @@ const Todo = () => {
     initialValue: { todo: "" },
   });
 
-  const handleAddTodo = (value: TodoFrom) => {
-    addTodo(value, { onError: getHttpError });
-    resetValue();
+  const handleAddTodo = (body: TodoFrom) => {
+    addTodo(body, {
+      onSuccess: () => {
+        resetValue();
+      },
+      onError: getHttpError,
+    });
   };
 
-  const handleChecked = (value: TodoEditPayload) => {
-    editTodo(value, { onError: getHttpError });
+  const handleChecked = (body: TodoEditPayload) => {
+    editTodo(body, { onError: getHttpError });
   };
 
-  const handleEdited = (value: TodoEditPayload) => {
-    editTodo(value, { onError: getHttpError });
+  const handleEdited = (body: TodoEditPayload) => {
+    editTodo(body, { onError: getHttpError });
   };
 
   const handleDeleted = (id: number) => {
