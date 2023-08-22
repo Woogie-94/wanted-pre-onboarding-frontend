@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
 
-import useSigninSend from "../fetch/useSigninSend";
 import useForm from "../hook/useForm";
 import useHttpError from "../hook/useHttpError";
 import usePageAccess from "../hook/usePageAccess";
+import useSigninMutation from "../querys/useSigninMutation";
 import { SignupForm } from "../services/auth";
 
 const Signin = () => {
   const navigate = useNavigate();
-  const { send: sendSignin, isLoading } = useSigninSend();
+  const { mutate: sendSignin, isLoading } = useSigninMutation();
   const { httpError, getHttpError } = useHttpError();
   const { register, onSubmit, errors, isUnsubmittable } = useForm<SignupForm>({
     initialValue: { email: "", password: "" },

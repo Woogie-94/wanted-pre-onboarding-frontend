@@ -1,16 +1,16 @@
-import FETCH_KEY from "./fetchKeys";
-import { fetchClient } from "../App";
-import useSend from "../hook/useSend";
+import QUERY_KEY from "./queryKeys";
+import { queryClient } from "../App";
+import useMutation from "../hook/useMutation";
 import { Todo } from "../interface/todo";
 import { editTodo } from "../services/todo";
 
-const useEditTodoSend = () => {
-  return useSend(editTodo, {
+const useEditTodoMutation = () => {
+  return useMutation(editTodo, {
     onSuccess: (data: Todo) => {
-      const prevData = fetchClient.getFetchData<Todo[]>(FETCH_KEY.todoList);
+      const prevData = queryClient.getQueryData<Todo[]>(QUERY_KEY.todoList);
       if (prevData) {
-        fetchClient.setFetchData(
-          FETCH_KEY.todoList,
+        queryClient.setQueryData(
+          QUERY_KEY.todoList,
           prevData.data.map(item => {
             if (item.id === data.id) {
               return { ...item, todo: data.todo, isCompleted: data.isCompleted };
@@ -23,4 +23,4 @@ const useEditTodoSend = () => {
   });
 };
 
-export default useEditTodoSend;
+export default useEditTodoMutation;

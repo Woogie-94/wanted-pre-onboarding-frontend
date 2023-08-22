@@ -1,9 +1,9 @@
 import { RouterProvider } from "react-router-dom";
 
-import FetchClient from "./core/fetchClient";
+import QueryClient from "./core/queryClient";
 import router from "./routes/route";
 
-export const fetchClient = new FetchClient();
+export const queryClient = new QueryClient();
 
 const App = () => {
   return <RouterProvider router={router} />;

@@ -1,12 +1,12 @@
 // eslint-disable-next-line max-classes-per-file
-type FetchKey = string | readonly unknown[];
+type QueryKey = string | readonly unknown[];
 
-class FetchState<TData = unknown> {
-  key: FetchKey;
+class QueryState<TData = unknown> {
+  key: QueryKey;
   data: TData;
   error: unknown;
 
-  constructor(config: { key: FetchKey; data: TData; error?: unknown }) {
+  constructor(config: { key: QueryKey; data: TData; error?: unknown }) {
     this.key = config.key;
     this.data = config.data;
     this.error = config.error;
@@ -21,10 +21,10 @@ class FetchState<TData = unknown> {
   }
 }
 
-type FetchFn<TData = unknown> = () => TData | Promise<TData>;
+type QueryFn<TData = unknown> = () => TData | Promise<TData>;
 
-class FetchClient {
-  states: FetchState[];
+class QueryClient {
+  states: QueryState[];
   listeners: Set<() => void>;
 
   constructor() {
@@ -32,11 +32,11 @@ class FetchClient {
     this.listeners = new Set();
   }
 
-  getFetchData<TData = unknown>(key: FetchKey) {
+  getQueryData<TData = unknown>(key: QueryKey) {
     return this.find<TData>(key);
   }
 
-  setFetchData<TData = unknown>(key: FetchKey, data: TData) {
+  setQueryData<TData = unknown>(key: QueryKey, data: TData) {
     if (!this.isStateEmpty) {
       this.states = [
         ...this.states.map(state => {
@@ -46,34 +46,34 @@ class FetchClient {
 
           return state;
         }),
-        new FetchState({ key, data }),
+        new QueryState({ key, data }),
       ];
     } else {
-      this.states = [new FetchState({ key, data })];
+      this.states = [new QueryState({ key, data })];
     }
   }
 
-  find<TData = unknown>(key: FetchKey): FetchState<TData> | undefined {
+  find<TData = unknown>(key: QueryKey): QueryState<TData> | undefined {
     if (typeof key === "object") {
       return this.states.find(state => {
         if (typeof state.key === "object") {
           return state.key.every(item => key.find(k => item === k));
         }
         return false;
-      }) as FetchState<TData>;
+      }) as QueryState<TData>;
     } else {
-      return this.states.find(state => state.key === key) as FetchState<TData>;
+      return this.states.find(state => state.key === key) as QueryState<TData>;
     }
   }
 
-  async fetch<TData = unknown>(key: FetchKey, fetchFn: FetchFn<TData>) {
+  async fetch<TData = unknown>(key: QueryKey, QueryFn: QueryFn<TData>) {
     if (this.find(key)) {
       return;
     }
 
     try {
-      const result = await fetchFn();
-      this.setFetchData(key, result);
+      const result = await QueryFn();
+      this.setQueryData(key, result);
     } catch (error) {
       if (!this.isStateEmpty) {
         this.states = this.states.map(state => {
@@ -83,7 +83,7 @@ class FetchClient {
           return state;
         });
       } else {
-        this.states = [new FetchState({ key, data: undefined, error })];
+        this.states = [new QueryState({ key, data: undefined, error })];
       }
     }
 
@@ -100,4 +100,4 @@ class FetchClient {
   }
 }
 
-export default FetchClient;
+export default QueryClient;

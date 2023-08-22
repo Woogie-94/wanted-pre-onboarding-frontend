@@ -1,20 +1,20 @@
 import { useEffect } from "react";
 
 import TodoItem from "../component/todo/TodoItem";
-import useAddTodoSend from "../fetch/useAddTodoSend";
-import useDeleteTodoSend from "../fetch/useDeleteTodoSend";
-import useEditTodoSend from "../fetch/useEditTodoSend";
-import useTodoFetch from "../fetch/useTodoFetch";
 import useForm from "../hook/useForm";
 import useHttpError from "../hook/useHttpError";
 import usePageAccess from "../hook/usePageAccess";
+import useAddTodoMutation from "../querys/useAddTodoMutation";
+import useDeleteTodoMutation from "../querys/useDeleteTodoMutation";
+import useEditTodoMutation from "../querys/useEditTodoMutation";
+import useTodoQuery from "../querys/useTodoQuery";
 import { TodoEditPayload, TodoFrom } from "../services/todo";
 
 const Todo = () => {
-  const { data: todos, error } = useTodoFetch();
-  const { send: addTodo } = useAddTodoSend();
-  const { send: editTodo } = useEditTodoSend();
-  const { send: deleteTodo } = useDeleteTodoSend();
+  const { data: todos, error } = useTodoQuery();
+  const { mutate: addTodo } = useAddTodoMutation();
+  const { mutate: editTodo } = useEditTodoMutation();
+  const { mutate: deleteTodo } = useDeleteTodoMutation();
   const { httpError, getHttpError } = useHttpError();
   const { register, onSubmit, resetValue } = useForm<TodoFrom>({
     initialValue: { todo: "" },
