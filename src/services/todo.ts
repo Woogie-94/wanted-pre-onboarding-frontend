@@ -9,18 +9,18 @@ export interface TodoFrom {
   todo: string;
 }
 
-export const addTodo = async (payload: TodoFrom) => {
-  const { data } = await httpService.post("/todos", payload);
+export const addTodo = async (todo: string) => {
+  const { data } = await httpService.post("/todos", { todo });
   return data;
 };
 
-export interface TodoEditPayload {
+export interface TodoEditParams {
   id: number;
   todo: string;
   isCompleted: boolean;
 }
-export const editTodo = async (payload: TodoEditPayload) => {
-  const { id, todo, isCompleted } = payload;
+export const editTodo = async (params: TodoEditParams) => {
+  const { id, todo, isCompleted } = params;
   const { data } = await httpService.put(`/todos/${id}`, { todo, isCompleted });
   return data;
 };
