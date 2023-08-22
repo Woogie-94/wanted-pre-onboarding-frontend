@@ -16,12 +16,13 @@ const Todo = () => {
   const { send: editTodo } = useEditTodoSend();
   const { send: deleteTodo } = useDeleteTodoSend();
   const { httpError, getHttpError } = useHttpError();
-  const { register, onSubmit } = useForm<TodoFrom>({
+  const { register, onSubmit, resetValue } = useForm<TodoFrom>({
     initialValue: { todo: "" },
   });
 
   const handleAddTodo = (value: TodoFrom) => {
     addTodo(value, { onError: getHttpError });
+    resetValue();
   };
 
   const handleChecked = (value: TodoEditPayload) => {

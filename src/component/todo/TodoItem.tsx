@@ -26,7 +26,7 @@ const TodoItem = ({ todo, onChecked, onEdited, onDeleted }: Props) => {
     <li key={todo.id}>
       {edittable ? (
         <form onSubmit={onSubmit(handleSubmit)}>
-          <input data-testid="modify-input" value={value.todo} {...register("todo")} />
+          <input data-testid="modify-input" {...register("todo")} />
           <button data-testid="submit-button">제출</button>
           <button
             data-testid="cancel-button"

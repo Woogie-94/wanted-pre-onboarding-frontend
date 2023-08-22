@@ -53,6 +53,7 @@ const useForm = <T extends Record<string, any>>({ initialValue }: { initialValue
   const register = (name: keyof T, option?: ValidationOption) => {
     return {
       name,
+      value: value[name],
       onChange: (e: ChangeEvent<HTMLInputElement>) => onChange(e, option),
     };
   };
