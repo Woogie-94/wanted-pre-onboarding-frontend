@@ -1,4 +1,4 @@
-import useMuatation from "../hook/useMutation";
+import useMuatation from "../hooks/useMutation";
 import { sendSignup } from "../services/auth";
 
 const useSignupMutation = () => {

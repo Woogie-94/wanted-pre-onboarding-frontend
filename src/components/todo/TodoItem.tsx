@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import useForm from "../../hook/useForm";
-import { Todo } from "../../interface/todo";
+import useForm from "../../hooks/useForm";
+import { Todo } from "../../interfaces/todo";
 import { TodoEditParams, TodoFrom } from "../../services/todo";
 import Button from "../common/Button";
 import Input from "../common/Input";

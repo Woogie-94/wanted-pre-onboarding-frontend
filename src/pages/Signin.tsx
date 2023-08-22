@@ -1,25 +1,25 @@
 import { useNavigate } from "react-router-dom";
 
-import Button from "../component/common/Button";
-import Input from "../component/common/Input";
-import useForm from "../hook/useForm";
-import useHttpError from "../hook/useHttpError";
-import usePageAccess from "../hook/usePageAccess";
-import useSignupMutation from "../querys/useSignupMutation";
+import Button from "../components/common/Button";
+import Input from "../components/common/Input";
+import useForm from "../hooks/useForm";
+import useHttpError from "../hooks/useHttpError";
+import usePageAccess from "../hooks/usePageAccess";
+import useSigninMutation from "../querys/useSigninMutation";
 import { SignupForm } from "../services/auth";
 
-const Signup = () => {
+const Signin = () => {
   const navigate = useNavigate();
-  const { mutate: sendSignup, isLoading } = useSignupMutation();
+  const { mutate: sendSignin, isLoading } = useSigninMutation();
   const { httpError, getHttpError } = useHttpError();
   const { register, onSubmit, errors, isUnsubmittable } = useForm<SignupForm>({
     initialValue: { email: "", password: "" },
   });
 
   const handleSubmit = (value: SignupForm) => {
-    sendSignup(value, {
+    sendSignin(value, {
       onSuccess: () => {
-        navigate("/signin");
+        navigate("/todo");
       },
       onError: getHttpError,
     });
@@ -45,10 +45,10 @@ const Signup = () => {
           helperMessage={errors.password}
         />
       </div>
-      <Button label="회원가입" loading={isLoading} disabled={isUnsubmittable} testId="signup-button" />
+      <Button label="로그인" loading={isLoading} disabled={isUnsubmittable} testId="signin-button" />
       {httpError && <p>{httpError.message}</p>}
     </form>
   );
 };
 
-export default Signup;
+export default Signin;

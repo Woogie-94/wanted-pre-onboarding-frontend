@@ -1,7 +1,7 @@
 import QUERY_KEY from "./queryKeys";
 import { queryClient } from "../App";
-import useMutation from "../hook/useMutation";
-import { Todo } from "../interface/todo";
+import useMutation from "../hooks/useMutation";
+import { Todo } from "../interfaces/todo";
 import { editTodo } from "../services/todo";
 
 const useEditTodoMutation = () => {

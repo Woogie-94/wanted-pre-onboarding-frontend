@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 
-import Button from "../component/common/Button";
-import Input from "../component/common/Input";
-import TodoItem from "../component/todo/TodoItem";
-import useForm from "../hook/useForm";
-import useHttpError from "../hook/useHttpError";
-import usePageAccess from "../hook/usePageAccess";
+import Button from "../components/common/Button";
+import Input from "../components/common/Input";
+import TodoItem from "../components/todo/TodoItem";
+import useForm from "../hooks/useForm";
+import useHttpError from "../hooks/useHttpError";
+import usePageAccess from "../hooks/usePageAccess";
 import useAddTodoMutation from "../querys/useAddTodoMutation";
 import useDeleteTodoMutation from "../querys/useDeleteTodoMutation";
 import useEditTodoMutation from "../querys/useEditTodoMutation";
