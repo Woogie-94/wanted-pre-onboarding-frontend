@@ -59,7 +59,7 @@ const Signup = () => {
             disabled={isUnsubmittable}
             testId="signup-button"
           />
-          <Button type="text" size="large" label="로그인하러 가기" testId="signin-button" onClick={handleSigninClick} />
+          <Button type="text" size="large" label="로그인하러 가기" onClick={handleSigninClick} />
         </ButtonWrapper>
       </form>
     </DefaultLayout>

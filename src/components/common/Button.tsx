@@ -9,7 +9,7 @@ interface Props extends Omit<ButtonHtmlAttributes, "type"> {
   size: Size;
   label: string;
   fitContent?: boolean;
-  testId: string;
+  testId?: string;
   loading?: boolean;
 }
 
