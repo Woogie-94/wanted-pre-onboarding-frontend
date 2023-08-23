@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { styled } from "styled-components";
 
 import Button from "../components/common/Button";
 import Input from "../components/common/Input";
@@ -50,24 +51,49 @@ const Todo = () => {
   usePageAccess();
 
   return (
-    <>
-      <form onSubmit={onSubmit(handleAddTodo)}>
-        <Input {...register("todo")} testId="new-todo-input" />
-        <Button label="추가" loading={isLoading} testId="new-todo-add-button" />
-      </form>
-      <ul>
-        {todos?.map(todo => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            onChecked={handleChecked}
-            onEdited={handleEdited}
-            onDeleted={handleDeleted}
+    <Wrapper>
+      <Content>
+        <Form onSubmit={onSubmit(handleAddTodo)}>
+          <Input {...register("todo")} testId="new-todo-input" />
+          <Button
+            type="filled"
+            size="medium"
+            label="추가"
+            fitContent
+            loading={isLoading}
+            testId="new-todo-add-button"
           />
-        ))}
-      </ul>
-    </>
+        </Form>
+        <TodoListWrapper>
+          {todos?.map(todo => (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              onChecked={handleChecked}
+              onEdited={handleEdited}
+              onDeleted={handleDeleted}
+            />
+          ))}
+        </TodoListWrapper>
+      </Content>
+    </Wrapper>
   );
 };
 
 export default Todo;
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+const Content = styled.div`
+  width: 420px;
+  padding: 120px 0;
+`;
+const Form = styled.form`
+  display: flex;
+  gap: 12px;
+`;
+const TodoListWrapper = styled.ul`
+  margin-top: 16px;
+`;
