@@ -1,11 +1,12 @@
 import { useCallback } from "react";
 
-import { useToastDispatchContext } from "../contexts/toastContext";
+import { useToastContext, useToastDispatchContext } from "../contexts/toastContext";
 import { sleep } from "../utils";
 
 const DEFAILT_DURATION = 2000;
 
 const useToast = () => {
+  const toast = useToastContext();
   const dispatch = useToastDispatchContext();
 
   const close = useCallback(
@@ -19,11 +20,14 @@ const useToast = () => {
 
   const show = useCallback(
     ({ message, duration = DEFAILT_DURATION }: { message: string; duration?: number }) => {
-      dispatch({ type: "add", message });
+      if (!(toast?.type === "remove")) {
+        return;
+      }
 
-      return close(duration);
+      dispatch({ type: "add", message });
+      close(duration);
     },
-    [close, dispatch],
+    [toast, close, dispatch],
   );
 
   return { show };
