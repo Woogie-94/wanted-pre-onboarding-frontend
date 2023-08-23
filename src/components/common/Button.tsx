@@ -58,6 +58,7 @@ const BaseButton = styled.button<{ $type: Type; $size: Size; disabled?: boolean;
   color: ${({ $type }) => ($type === "filled" ? "#fff" : "#3b3c42")};
   background-color: ${({ $type }) => ($type === "filled" ? "#5a41f5" : "transparent")};
   border-radius: 8px;
+  transition: 0.2s;
 
   &:disabled {
     color: #3b3c42;
@@ -66,13 +67,13 @@ const BaseButton = styled.button<{ $type: Type; $size: Size; disabled?: boolean;
 
   &:hover {
     &:not(:disabled) {
-      background-color: ${({ $type }) => ($type === "filled" ? "#5d48e7" : "transparent")};
+      background-color: ${({ $type }) => ($type === "filled" ? "#5d48e7" : "#f4f4f790")};
     }
   }
 
   &:active {
     &:not(:disabled) {
-      background-color: ${({ $type }) => ($type === "filled" ? "#5d48e7" : "transparent")};
+      background-color: ${({ $type }) => ($type === "filled" ? "#5d48e7" : "#f4f4f790")};
     }
   }
 `;
