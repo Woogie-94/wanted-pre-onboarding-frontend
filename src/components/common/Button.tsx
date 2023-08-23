@@ -67,13 +67,13 @@ const BaseButton = styled.button<{ $type: Type; $size: Size; disabled?: boolean;
 
   &:hover {
     &:not(:disabled) {
-      background-color: ${({ $type }) => ($type === "filled" ? "#5d48e7" : "#f4f4f790")};
+      background-color: ${({ $type }) => ($type === "filled" ? "#513BDD" : "#f4f4f790")};
     }
   }
 
   &:active {
     &:not(:disabled) {
-      background-color: ${({ $type }) => ($type === "filled" ? "#5d48e7" : "#f4f4f790")};
+      background-color: ${({ $type }) => ($type === "filled" ? "#513BDD" : "#f4f4f790")};
     }
   }
 `;
