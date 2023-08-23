@@ -27,6 +27,10 @@ const Signup = () => {
     });
   };
 
+  const handleSigninClick = () => {
+    navigate("/signin");
+  };
+
   usePageAccess();
 
   return (
@@ -55,6 +59,7 @@ const Signup = () => {
             disabled={isUnsubmittable}
             testId="signup-button"
           />
+          <Button type="text" size="large" label="로그인하러 가기" testId="signin-button" onClick={handleSigninClick} />
         </ButtonWrapper>
       </form>
     </DefaultLayout>
@@ -70,5 +75,8 @@ const InputWrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   margin-top: 24px;
 `;
