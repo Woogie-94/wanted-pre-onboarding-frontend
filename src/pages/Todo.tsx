@@ -7,6 +7,7 @@ import TodoItem from "../components/todo/TodoItem";
 import useForm from "../hooks/useForm";
 import useHttpError from "../hooks/useHttpError";
 import usePageAccess from "../hooks/usePageAccess";
+import DefaultLayout from "../layouts/DefaultLayout";
 import useAddTodoMutation from "../querys/useAddTodoMutation";
 import useDeleteTodoMutation from "../querys/useDeleteTodoMutation";
 import useEditTodoMutation from "../querys/useEditTodoMutation";
@@ -51,45 +52,28 @@ const Todo = () => {
   usePageAccess();
 
   return (
-    <Wrapper>
-      <Content>
-        <Form onSubmit={onSubmit(handleAddTodo)}>
-          <Input {...register("todo")} testId="new-todo-input" />
-          <Button
-            type="filled"
-            size="medium"
-            label="추가"
-            fitContent
-            loading={isLoading}
-            testId="new-todo-add-button"
+    <DefaultLayout>
+      <Form onSubmit={onSubmit(handleAddTodo)}>
+        <Input {...register("todo")} testId="new-todo-input" />
+        <Button type="filled" size="medium" label="추가" fitContent loading={isLoading} testId="new-todo-add-button" />
+      </Form>
+      <TodoListWrapper>
+        {todos?.map(todo => (
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onChecked={handleChecked}
+            onEdited={handleEdited}
+            onDeleted={handleDeleted}
           />
-        </Form>
-        <TodoListWrapper>
-          {todos?.map(todo => (
-            <TodoItem
-              key={todo.id}
-              todo={todo}
-              onChecked={handleChecked}
-              onEdited={handleEdited}
-              onDeleted={handleDeleted}
-            />
-          ))}
-        </TodoListWrapper>
-      </Content>
-    </Wrapper>
+        ))}
+      </TodoListWrapper>
+    </DefaultLayout>
   );
 };
 
 export default Todo;
 
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-const Content = styled.div`
-  width: 420px;
-  padding: 120px 0;
-`;
 const Form = styled.form`
   display: flex;
   gap: 12px;
