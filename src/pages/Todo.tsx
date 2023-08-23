@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { styled } from "styled-components";
 
 import Button from "../components/common/Button";
 import Input from "../components/common/Input";
@@ -6,6 +7,7 @@ import TodoItem from "../components/todo/TodoItem";
 import useForm from "../hooks/useForm";
 import useHttpError from "../hooks/useHttpError";
 import usePageAccess from "../hooks/usePageAccess";
+import DefaultLayout from "../layouts/DefaultLayout";
 import useAddTodoMutation from "../querys/useAddTodoMutation";
 import useDeleteTodoMutation from "../querys/useDeleteTodoMutation";
 import useEditTodoMutation from "../querys/useEditTodoMutation";
@@ -50,12 +52,12 @@ const Todo = () => {
   usePageAccess();
 
   return (
-    <>
-      <form onSubmit={onSubmit(handleAddTodo)}>
+    <DefaultLayout>
+      <Form onSubmit={onSubmit(handleAddTodo)}>
         <Input {...register("todo")} testId="new-todo-input" />
-        <Button label="추가" loading={isLoading} testId="new-todo-add-button" />
-      </form>
-      <ul>
+        <Button type="filled" size="medium" label="추가" fitContent loading={isLoading} testId="new-todo-add-button" />
+      </Form>
+      <TodoListWrapper>
         {todos?.map(todo => (
           <TodoItem
             key={todo.id}
@@ -65,9 +67,17 @@ const Todo = () => {
             onDeleted={handleDeleted}
           />
         ))}
-      </ul>
-    </>
+      </TodoListWrapper>
+    </DefaultLayout>
   );
 };
 
 export default Todo;
+
+const Form = styled.form`
+  display: flex;
+  gap: 12px;
+`;
+const TodoListWrapper = styled.ul`
+  margin-top: 16px;
+`;

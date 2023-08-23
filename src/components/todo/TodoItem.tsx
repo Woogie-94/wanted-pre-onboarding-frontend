@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { styled } from "styled-components";
 
 import useForm from "../../hooks/useForm";
 import { Todo } from "../../interfaces/todo";
@@ -41,25 +42,102 @@ const TodoItem = ({ todo, onChecked, onEdited, onDeleted }: Props) => {
   };
 
   return (
-    <li key={todo.id}>
+    <Wrapper>
       {edittable ? (
-        <form onSubmit={onSubmit(handleSubmit)}>
+        <Form onSubmit={onSubmit(handleSubmit)}>
           <Input {...register("todo")} testId="modify-input" />
-          <Button label="수정" testId="submit-button" />
-          <Button label="취소" onClick={handleCancleClick} testId="cancel-button" />
-        </form>
+          <FormButtonWrapper>
+            <Button type="text" size="medium" fitContent label="수정" testId="submit-button" />
+            <Button
+              type="text"
+              size="medium"
+              fitContent
+              label="취소"
+              onClick={handleCancleClick}
+              testId="cancel-button"
+            />
+          </FormButtonWrapper>
+        </Form>
       ) : (
-        <>
-          <label style={{ marginRight: 12 }}>
-            <input type="checkbox" checked={todo.isCompleted} onChange={handleCompletClick} />
-            <span>{todo.todo}</span>
-          </label>
-          <Button label="수정" onClick={handleEditClick} testId="modify-button" />
-          <Button label="삭제" onClick={handleDeletClick} testId="delete-button" />
-        </>
+        <ItemWrapper>
+          <ItemLabelWrapper>
+            <ItemCheckbox
+              type="checkbox"
+              id={`checkbox-${todo.id}`}
+              checked={todo.isCompleted}
+              onChange={handleCompletClick}
+            />
+            <label htmlFor={`checkbox-${todo.id}`} />
+            <ItemLabel $checked={todo.isCompleted}>{todo.todo}</ItemLabel>
+          </ItemLabelWrapper>
+          <ButtonWrapper>
+            <Button
+              type="text"
+              size="medium"
+              fitContent
+              label="수정"
+              onClick={handleEditClick}
+              testId="modify-button"
+            />
+            <Button
+              type="text"
+              size="medium"
+              fitContent
+              label="삭제"
+              onClick={handleDeletClick}
+              testId="delete-button"
+            />
+          </ButtonWrapper>
+        </ItemWrapper>
       )}
-    </li>
+    </Wrapper>
   );
 };
 
 export default TodoItem;
+
+const Wrapper = styled.li``;
+
+const ItemWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const ItemLabelWrapper = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+`;
+const ItemCheckbox = styled.input`
+  display: none;
+
+  + label {
+    cursor: pointer;
+    min-width: 12px;
+    height: 12px;
+    margin-right: 12px;
+    border: 2px solid #3b3c4280;
+    border-radius: 4px;
+  }
+
+  &:checked + label {
+    border: none;
+    background-color: #3b3c4280;
+  }
+`;
+const ItemLabel = styled.p<{ $checked: boolean }>`
+  font-size: 16px;
+  color: ${({ $checked }) => ($checked ? "#3b3c4280" : "#3b3c42")};
+  text-decoration: ${({ $checked }) => ($checked ? "line-through" : "none")};
+`;
+const ButtonWrapper = styled.div`
+  display: flex;
+`;
+
+const Form = styled.form`
+  display: flex;
+  gap: 8px;
+`;
+const FormButtonWrapper = styled.div`
+  display: flex;
+`;

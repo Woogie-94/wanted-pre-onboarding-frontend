@@ -24,7 +24,6 @@ const reducer = produce((draft: State, action: Action) => {
       break;
     case "remove":
       draft.type = action.type;
-      draft.message = "";
       break;
   }
 });
